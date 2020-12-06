@@ -11,5 +11,10 @@ namespace ImagePresto
     {
         public string fName;
         public Size size;
+
+        public float Aspect()
+        {
+            return (float) size.Width / size.Height;
+        }
     }
 }

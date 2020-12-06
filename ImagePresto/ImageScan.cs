@@ -80,7 +80,7 @@ namespace ImagePresto
 
         private void bSave_Click(object sender, EventArgs e)
         {
-            File.WriteAllText(config.FileList, JsonConvert.SerializeObject(imgList.ToArray()));
+            File.WriteAllText(config.FileList, JsonConvert.SerializeObject(imgList));
         }
     }
 }

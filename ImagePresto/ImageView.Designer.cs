@@ -29,10 +29,20 @@ namespace ImagePresto
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // ImageView
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Name = "ImageView";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.ImageView_Load);
+            this.Click += new System.EventHandler(this.ImageView_Click);
+            this.Resize += new System.EventHandler(this.ImageView_Resize);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
