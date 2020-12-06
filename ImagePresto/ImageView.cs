@@ -20,6 +20,9 @@ namespace ImagePresto
 
     public partial class ImageView : Form
     {
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTTRANSPARENT = 0x84;
+
         readonly IPConfig config;
         readonly List<ImageSizeItem> images= new List<ImageSizeItem>();
         readonly Random rnd = new Random();
@@ -46,8 +49,7 @@ namespace ImagePresto
             images.Sort();
         }
 
-
-        private void ImageView_Click(object sender, EventArgs e)
+        private void GenerateNewBG()
         {
             Bitmap newBG = new Bitmap(ClientSize.Width, ClientSize.Height);
             var b1 = NewBG(Width, Height / 2);
@@ -61,6 +63,12 @@ namespace ImagePresto
             BGImage = newBG;
             old.Dispose();
             Invalidate();
+
+        }
+
+        private void ImageView_Click(object sender, EventArgs e)
+        {
+            GenerateNewBG();
         }
 
         private Bitmap NewBG(int Width,int Height)
@@ -147,6 +155,7 @@ namespace ImagePresto
 
         private void ImageView_Paint(object sender, PaintEventArgs e)
         {
+            if (ClientSize.Width <= 0 || ClientSize.Height <= 0) return;
             if (BGImage == null)
             {
                 BGImage = new Bitmap(ClientSize.Width, ClientSize.Height);
@@ -165,6 +174,45 @@ namespace ImagePresto
             Size uSize = GetUsedSpace(BGImage.Size, ClientSize);
             e.Graphics.DrawImage(BGImage,0,0,uSize.Width,uSize .Height);
 //            e.Graphics.DrawImage(BGImage, ClientRectangle);
+        }
+
+        private void ImageView_KeyPress(object sender, KeyPressEventArgs e)
+        {
+        }
+
+        private void ImageView_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    if (e.Alt)
+                    {
+                        if (WindowState == FormWindowState.Maximized)
+                        {
+                            WindowState = FormWindowState.Normal;
+                        }
+                        else
+                        {
+                            WindowState = FormWindowState.Maximized;
+                            AllowTransparency = true;
+                        }
+                    }
+                    break;
+                case Keys.Space:
+                    GenerateNewBG();
+                    break;
+
+            }
+
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+
+            if (m.Msg == WM_NCHITTEST)
+                m.Result = new IntPtr(-1);
+            else
+                base.WndProc(ref m);
         }
     }
 }

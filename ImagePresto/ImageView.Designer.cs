@@ -37,10 +37,13 @@ namespace ImagePresto
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "ImageView";
+            this.ShowInTaskbar = false;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.ImageView_Load);
             this.Click += new System.EventHandler(this.ImageView_Click);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.ImageView_Paint);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ImageView_KeyPress);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ImageView_KeyUp);
             this.Resize += new System.EventHandler(this.ImageView_Resize);
             this.ResumeLayout(false);
 
