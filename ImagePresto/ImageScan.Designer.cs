@@ -29,14 +29,11 @@ namespace ImagePresto
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.progressScan = new System.Windows.Forms.ProgressBar();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.tbScanDir = new System.Windows.Forms.TextBox();
             this.bScan = new System.Windows.Forms.Button();
             this.lScanInfo = new System.Windows.Forms.Label();
             this.bSave = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // progressScan
@@ -44,13 +41,11 @@ namespace ImagePresto
             this.progressScan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressScan.Location = new System.Drawing.Point(12, 39);
+            this.progressScan.Minimum = 1;
             this.progressScan.Name = "progressScan";
             this.progressScan.Size = new System.Drawing.Size(497, 23);
             this.progressScan.TabIndex = 0;
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
+            this.progressScan.Value = 1;
             // 
             // tbScanDir
             // 
@@ -70,6 +65,7 @@ namespace ImagePresto
             this.bScan.TabIndex = 2;
             this.bScan.Text = "Scan";
             this.bScan.UseVisualStyleBackColor = true;
+            this.bScan.Click += new System.EventHandler(this.bScan_Click);
             // 
             // lScanInfo
             // 
@@ -102,7 +98,6 @@ namespace ImagePresto
             this.Controls.Add(this.progressScan);
             this.Name = "ImageScan";
             this.Text = "ImageScan";
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -111,7 +106,6 @@ namespace ImagePresto
         #endregion
 
         private System.Windows.Forms.ProgressBar progressScan;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Button bSave;
         private System.Windows.Forms.Label lScanInfo;
         private System.Windows.Forms.Button bScan;
