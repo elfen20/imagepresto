@@ -10,16 +10,30 @@ namespace ImagePresto
 {
     class IPConfig
     {
+        private const string CONFIGFILE = "ipconfig.json";
         public string FileList = default;
 
+
+        public static IPConfig GetDefault()
+        {
+            IPConfig conf = new IPConfig();
+            conf.FileList = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            return conf;
+        }
         public static IPConfig GetConfig()
         {
-            return JsonConvert.DeserializeObject<IPConfig>(File.ReadAllText("ipconfig.json"));
+            if (!File.Exists(CONFIGFILE))
+            {
+                IPConfig conf = IPConfig.GetDefault();
+                conf.Save();
+                return conf;
+            } 
+            return JsonConvert.DeserializeObject<IPConfig>(File.ReadAllText(CONFIGFILE));
         }
 
         internal void Save()
         {
-            string res = JsonConvert.SerializeObject(this);
+            File.WriteAllText(CONFIGFILE, JsonConvert.SerializeObject(this));
         }
     }
 }
