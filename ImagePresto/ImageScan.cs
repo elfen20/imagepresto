@@ -14,11 +14,13 @@ namespace ImagePresto
     {
         readonly string ScanDir;
         readonly IPConfig config;
+        
         public ImageScan(string v)
         {
             InitializeComponent();
             this.ScanDir = v;
             config = IPConfig.GetConfig();
+            tbScanDir.Text = v;
         }
     }
 }
