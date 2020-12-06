@@ -14,15 +14,23 @@ namespace ImagePresto
         [STAThread]
         static void Main()
         {
+            
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             var args = Environment.GetCommandLineArgs();
-            if (args.Length > 1)
+            if (args.Length == 3)
             {
-
+                switch (args[1])
+                {
+                    case "scan":
+                        Application.Run(new ImageScan(args[2]));
+                        break;
+                    default:
+                        throw new ArgumentException("Error in Command line");
+                }
             }
             else
             {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new ImageView());
             }
         }
