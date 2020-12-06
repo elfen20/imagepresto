@@ -49,23 +49,33 @@ namespace ImagePresto
 
         private void ImageView_Click(object sender, EventArgs e)
         {
-            NewBG(ClientSize);
+            Bitmap newBG = new Bitmap(ClientSize.Width, ClientSize.Height);
+            var b1 = NewBG(Width, Height / 2);
+            var b2 = NewBG(Width, Height / 2);
+            using (var g = Graphics.FromImage(newBG))
+            {
+                g.DrawImage(b1, 0, 0);
+                g.DrawImage(b2, 0, Height / 2);
+            }
+            Bitmap old = BGImage;
+            BGImage = newBG;
+            old.Dispose();
             Invalidate();
         }
 
-        private void NewBG(Size size)
+        private Bitmap NewBG(int Width,int Height)
         {
             float minAspect = 1.7f;
 
             List<Size> uSizes = new List<Size>();
             List<BitmapItem> bitmaps = new List<BitmapItem>();
             int totalWidth = 0;
-            Size restSize = size;
+            Size restSize = new Size(Width, Height);
             bool done = false;
             while (!done)
             {
                 ImageSizeItem item;
-                float rAspect = (float)(size.Width - totalWidth) / size.Height;
+                float rAspect = (float)(Width - totalWidth) / Height;
                 done = (bitmaps.Count >= imgCount) && (rAspect < minAspect);
                 if (!done)
                 {
@@ -87,7 +97,7 @@ namespace ImagePresto
             }
 
 
-            Bitmap newBG = new Bitmap(totalWidth, size.Height);
+            Bitmap newBG = new Bitmap(totalWidth, Height);
             using (Graphics g = Graphics.FromImage(newBG))
             {
                 foreach (var b in bitmaps)
@@ -98,10 +108,7 @@ namespace ImagePresto
                     }
                 }
             }
-
-            Bitmap oldBG = BGImage;
-            BGImage = newBG;
-            oldBG.Dispose();
+            return newBG;
         }
 
         private Size GetUsedSpace(Size imgSize, Size avSize)
