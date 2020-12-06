@@ -10,14 +10,14 @@ namespace ImagePresto
 {
     class IPConfig
     {
-        private const string CONFIGFILE = "ipconfig.json";
+        private const string CONFIGFILE = "config.json";
         public string FileList = default;
 
 
         public static IPConfig GetDefault()
         {
             IPConfig conf = new IPConfig();
-            conf.FileList = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            conf.FileList = "images.json";
             return conf;
         }
         public static IPConfig GetConfig()
