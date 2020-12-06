@@ -17,10 +17,10 @@ namespace ImagePresto
         
         public ImageScan(string v)
         {
-            InitializeComponent();
-            this.ScanDir = v;
+            InitializeComponent();            
+            ScanDir = v?.Length > 0 ? v : Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
             config = IPConfig.GetConfig();
-            tbScanDir.Text = v;
+            tbScanDir.Text = ScanDir;
         }
     }
 }
