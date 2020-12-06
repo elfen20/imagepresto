@@ -18,12 +18,13 @@ namespace ImagePresto
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var args = Environment.GetCommandLineArgs();
-            if (args.Length == 3)
+            if (args.Length > 1)
             {
                 switch (args[1])
                 {
                     case "scan":
-                        Application.Run(new ImageScan(args[2]));
+                        string scandir = (args.Length > 2) ? args[2] : string.Empty;
+                        Application.Run(new ImageScan(scandir));
                         break;
                     default:
                         throw new ArgumentException("Error in Command line");
