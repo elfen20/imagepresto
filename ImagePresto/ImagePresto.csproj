@@ -64,6 +64,7 @@
     <Compile Include="IPConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScanProgressReport.cs" />
     <EmbeddedResource Include="ImageScan.resx">
       <DependentUpon>ImageScan.cs</DependentUpon>
     </EmbeddedResource>
