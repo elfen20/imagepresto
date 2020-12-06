@@ -40,6 +40,7 @@ namespace ImagePresto
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.ImageView_Load);
             this.Click += new System.EventHandler(this.ImageView_Click);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.ImageView_Paint);
             this.Resize += new System.EventHandler(this.ImageView_Resize);
             this.ResumeLayout(false);
 
