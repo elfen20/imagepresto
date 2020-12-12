@@ -12,6 +12,8 @@ namespace ImagePresto
     {
         private const string CONFIGFILE = "config.json";
         public string FileList = default;
+        public bool ClickThrough = true;
+        public bool ShowInTaskbar = false;
 
 
         public static IPConfig GetDefault()
