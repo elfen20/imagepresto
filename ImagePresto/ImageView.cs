@@ -36,6 +36,7 @@ namespace ImagePresto
         {
             InitializeComponent();
             config = IPConfig.GetConfig();
+            this.ShowInTaskbar = config.ShowInTaskbar;
         }
 
         private void ImageView_Load(object sender, EventArgs e)
@@ -61,7 +62,7 @@ namespace ImagePresto
             }
             Bitmap old = BGImage;
             BGImage = newBG;
-            old.Dispose();
+            old?.Dispose();
             Invalidate();
 
         }
@@ -158,18 +159,7 @@ namespace ImagePresto
             if (ClientSize.Width <= 0 || ClientSize.Height <= 0) return;
             if (BGImage == null)
             {
-                BGImage = new Bitmap(ClientSize.Width, ClientSize.Height);
-                using (Graphics g = Graphics.FromImage(BGImage))
-                {
-                    g.Clear(RandomColor());
-                    for (int y = 0; y < 3; y++)
-                    {
-                        for (int x = 0; x < 5; x++)
-                        {
-                            g.FillEllipse(Brushes.AliceBlue, new Rectangle(x * 100 + 50, y * 100 + 50, 90, 90));
-                        }
-                    }
-                }
+                GenerateNewBG();
             }
             Size uSize = GetUsedSpace(BGImage.Size, ClientSize);
             e.Graphics.DrawImage(BGImage,0,0,uSize.Width,uSize .Height);
@@ -208,6 +198,11 @@ namespace ImagePresto
 
         protected override void WndProc(ref Message m)
         {
+            if (!config.ClickThrough)
+            {
+                base.WndProc(ref m);
+                return;
+            }
 
             if (m.Msg == WM_NCHITTEST)
                 m.Result = new IntPtr(-1);
